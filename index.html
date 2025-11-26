@@ -3,51 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Etch-a-Sketch</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background-color: #f0f0f0;
-      }
-      #grid {
-        display: flex;
-        flex-wrap: wrap; /* allows items to wrap to next row */
-        width: 320px; /* adjust as you like */
-        height: 320px;
-        border: 1px solid #ccc;
-      }
-
-      .gridcell {
-        width: 20px; /* 320 / 16 = 20 */
-        height: 20px;
-        border: 1px solid; /* optional */
-        box-sizing: border-box;
-        transition: background-color 0.3s ease; /* smooth color transition */
-      }
-      #container {
-        position: relative;
-        width: fit-content;
-        margin: 0 auto;
-      }
-
-      #clearButton {
-        position: absolute;
-        top: -40px;
-        left: 50%;
-        z-index: 10px;
-        padding: 5px 10px;
-        transform: translateX(-50%);
-      }
-    </style>
   </head>
   <body>
     <div id="container">
       <button id="clearButton">Reset</button>
+      <button id="gridSize">Etch-a-Sketch</button>
+      <button id="snake">Snake</button>
       <div id="grid"></div>
     </div>
 
@@ -74,6 +37,15 @@
           cell.style.backgroundColor = "";
         });
       });
+
+      function promptForGridSize() {
+        let size = parseInt(prompt("Enter grid size (max 64):"), 10);
+        if (isNaN(size) || size < 1 || size > 64) {
+          alert("Invalid size. Please enter a number between 1 and 64.");
+          return;
+        }
+        createGrid(size);
+      }
       console.log("Welcome to Etch-a-Sketch!");
     </script>
   </body>
