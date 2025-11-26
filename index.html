@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Etch-a-Sketch</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+      }
+      #grid {
+        display: flex;
+        flex-wrap: wrap; /* allows items to wrap to next row */
+        width: 320px; /* adjust as you like */
+        height: 320px;
+        border: 1px solid #ccc;
+      }
+
+      .gridcell {
+        width: 20px; /* 320 / 16 = 20 */
+        height: 20px;
+        border: 1px solid; /* optional */
+        box-sizing: border-box;
+        transition: background-color 0.3s ease; /* smooth color transition */
+      }
+      #container {
+        position: relative;
+        width: fit-content;
+        margin: 0 auto;
+      }
+
+      #clearButton {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        z-index: 10px;
+        padding: 5px 10px;
+        transform: translateX(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <button id="clearButton">Reset</button>
+      <div id="grid"></div>
+    </div>
+
+    <script>
+      const grid = document.getElementById("grid");
+
+      for (let i = 0; i < 256; i++) {
+        const cell = document.createElement("div");
+        cell.classList.add("gridcell");
+        grid.appendChild(cell);
+        cell.addEventListener("mouseover", () => {
+          cell.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+          setTimeout(() => {
+            cell.style.backgroundColor = "";
+          }, 1000);
+        });
+
+        grid.appendChild(cell);
+      }
+      const clearButton = document.getElementById("clearButton");
+      clearButton.addEventListener("click", () => {
+        const cells = document.querySelectorAll(".gridcell");
+        cells.forEach((cell) => {
+          cell.style.backgroundColor = "";
+        });
+      });
+      console.log("Welcome to Etch-a-Sketch!");
+    </script>
+  </body>
+</html>
