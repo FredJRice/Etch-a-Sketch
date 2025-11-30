@@ -9,44 +9,71 @@
   <body>
     <div id="container">
       <button id="clearButton">Reset</button>
-      <button id="gridSize">Etch-a-Sketch</button>
-      <button id="snake">Snake</button>
+      <button id="etch">Etch-a-Sketch</button>
+      <button id="snakeButton">Snake</button>
       <div id="grid"></div>
     </div>
 
     <script>
-      const grid = document.getElementById("grid");
-
-      for (let i = 0; i < 256; i++) {
-        const cell = document.createElement("div");
-        cell.classList.add("gridcell");
-        grid.appendChild(cell);
-        cell.addEventListener("mouseover", () => {
-          cell.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-          setTimeout(() => {
-            cell.style.backgroundColor = "";
-          }, 1000);
-        });
-
-        grid.appendChild(cell);
+      const snakeButton = document.getElementById("snakeButton");
+      const etch = document.getElementById("etch");
+      // Snake Game Functionality
+      function snakeGame() {
+        const grid = document.getElementById("grid");
+        for (let i = 0; i < 256; i++) {
+          const cell = document.createElement("div");
+          cell.classList.add("gridcell");
+          grid.appendChild(cell);
+          cell.addEventListener("mouseover", () => {
+            cell.style.backgroundColor = `hsl(${
+              Math.random() * 360
+            }, 100%, 50%)`;
+            setTimeout(() => {
+              cell.style.backgroundColor = "";
+            }, 1000);
+          });
+        }
       }
-      const clearButton = document.getElementById("clearButton");
-      clearButton.addEventListener("click", () => {
-        const cells = document.querySelectorAll(".gridcell");
-        cells.forEach((cell) => {
-          cell.style.backgroundColor = "";
-        });
-      });
 
+      snakeButton.addEventListener("click", () => {
+        snakeGame();
+      });
+      // Etch-a-Sketch Functionality
+      // Create default grid
       function promptForGridSize() {
-        let size = parseInt(prompt("Enter grid size (max 64):"), 10);
+        let size = parseInt(prompt("Enter grid size (1–64):"), 10);
+
         if (isNaN(size) || size < 1 || size > 64) {
-          alert("Invalid size. Please enter a number between 1 and 64.");
+          alert("Please enter a number between 1 and 64.");
           return;
         }
         createGrid(size);
       }
-      console.log("Welcome to Etch-a-Sketch!");
+      //etch-a-sketch grid creation
+      function createGrid(size) {
+        const grid = document.getElementById("grid");
+        grid.innerHTML = ""; // clear existing grid
+
+        grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+        grid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+
+        const total = size * size;
+
+        for (let i = 0; i < total; i++) {
+          const cell = document.createElement("div");
+          cell.classList.add("gridcell");
+
+          // Etch-a-sketch effect (draw when mouse goes over)
+          cell.addEventListener("mouseover", () => {
+            cell.style.backgroundColor = "black";
+          });
+
+          grid.appendChild(cell);
+        }
+      }
+      etch.addEventListener("click", () => {
+        promptForGridSize();
+      });
     </script>
   </body>
 </html>
