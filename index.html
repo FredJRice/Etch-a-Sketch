@@ -46,20 +46,32 @@
           const cell = document.createElement("div");
           cell.classList.add("gridcell");
           grid.appendChild(cell);
-          cell.addEventListener("mouseover", () => {
-            cell.style.backgroundColor = `hsl(${
-              Math.random() * 360
-            }, 100%, 50%)`;
-            setTimeout(() => {
-              cell.style.backgroundColor = "";
-            }, 1000);
-          });
-          // optional: touch support for snake
-        cell.addEventListener("touchstart", () => {
-          cell.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-          setTimeout(() => {
-            cell.style.backgroundColor = "";
-          }, 1000);
+          
+          
+        // Mouse hover effect
+    cell.addEventListener("mouseover", () => {
+      if (currentMode !== "snake") return;
+      cell.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      setTimeout(() => cell.style.backgroundColor = "", 1000);
+    });
+
+    // Touch tap
+    cell.addEventListener("touchstart", () => {
+      if (currentMode !== "snake") return;
+      cell.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+      setTimeout(() => cell.style.backgroundColor = "", 1000);
+    });
+
+    // Touch swipe / drag
+    cell.addEventListener("touchmove", (e) => {
+      if (currentMode !== "snake") return;
+      e.preventDefault(); // prevent scrolling
+      const touch = e.touches[0];
+      const target = document.elementFromPoint(touch.clientX, touch.clientY);
+      if (target && target.classList.contains("gridcell")) {
+        target.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        setTimeout(() => target.style.backgroundColor = "", 1000);
+      }
     });
         }
       }
