@@ -8,6 +8,12 @@ body {
   background-color: white;
 }
 
+html, body {
+  overflow: hidden; /* prevents scrolling */
+  touch-action: none; /* disables default touch gestures */
+}
+
+
 #container {
   display: flex;
   flex-direction: column;

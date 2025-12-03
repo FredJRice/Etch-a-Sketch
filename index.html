@@ -22,7 +22,11 @@
 
     <script>
       let isMouseDown = false;
+      let isTouchDown = false;
 
+      // Track touch state
+      document.addEventListener("touchstart", () => isTouchDown = true);
+      document.addEventListener("touchend", () => isTouchDown = false);
       document.addEventListener("mousedown", () => isMouseDown = true);
       document.addEventListener("mouseup", () => isMouseDown = false);
 
@@ -87,6 +91,19 @@
 
           cell.addEventListener("mousedown", () => {
           cell.style.backgroundColor = "black";
+        });
+
+        // Touch events
+        cell.addEventListener("touchstart", () => {
+          cell.style.backgroundColor = "black";
+        });
+        cell.addEventListener("touchmove", (e) => {
+          e.preventDefault(); // prevent scrolling
+          const touch = e.touches[0];
+          const target = document.elementFromPoint(touch.clientX, touch.clientY);
+          if (target && target.classList.contains("gridcell")) {
+            target.style.backgroundColor = "black";
+          }
         });
   
           grid.appendChild(cell);
