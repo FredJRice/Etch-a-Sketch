@@ -8,18 +8,29 @@
   </head>
   <body>
     <div id="container">
-      <button id="clearButton">Reset</button>
-      <button id="etch">Etch-a-Sketch</button>
-      <button id="snakeButton">Snake</button>
+      <div id="buttonContainer">
+        <button id="clearButton">Clear</button>
+        <button id="snakeButton">Snake</button>
+        <button id="etchButton">Etch-a-Sketch</button>
+      </div>
       <div id="grid"></div>
     </div>
 
     <script>
+      let isMouseDown = false;
+
+      document.addEventListener("mousedown", () => isMouseDown = true);
+      document.addEventListener("mouseup", () => isMouseDown = false);
+
       const snakeButton = document.getElementById("snakeButton");
       const etch = document.getElementById("etch");
+    
       // Snake Game Functionality
       function snakeGame() {
         const grid = document.getElementById("grid");
+        grid.innerHTML = ""; // clear existing grid
+        grid.style.gridTemplateColumns = `repeat(${16}, 1fr)`;
+        grid.style.gridTemplateRows = `repeat(${16}, 1fr)`;
         for (let i = 0; i < 256; i++) {
           const cell = document.createElement("div");
           cell.classList.add("gridcell");
@@ -42,7 +53,6 @@
       // Create default grid
       function promptForGridSize() {
         let size = parseInt(prompt("Enter grid size (1–64):"), 10);
-
         if (isNaN(size) || size < 1 || size > 64) {
           alert("Please enter a number between 1 and 64.");
           return;
@@ -53,7 +63,6 @@
       function createGrid(size) {
         const grid = document.getElementById("grid");
         grid.innerHTML = ""; // clear existing grid
-
         grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
         grid.style.gridTemplateRows = `repeat(${size}, 1fr)`;
 
@@ -65,15 +74,32 @@
 
           // Etch-a-sketch effect (draw when mouse goes over)
           cell.addEventListener("mouseover", () => {
+            if (isMouseDown){
             cell.style.backgroundColor = "black";
+            }else{
+              cell.style.backgroundColor = "white";
+            }
           });
 
+          cell.addEventListener("mousedown", () => {
+          cell.style.backgroundColor = "black";
+        });
+  
           grid.appendChild(cell);
         }
       }
-      etch.addEventListener("click", () => {
+        etchButton.addEventListener("click", () => {
         promptForGridSize();
       });
+        // Clear button functionality
+      const clearButton = document.getElementById("clearButton");
+        clearButton.addEventListener("click", () => {
+        const cells = document.querySelectorAll(".gridcell");
+        cells.forEach(cell => {
+        cell.style.backgroundColor = "";
+    });
+});
+
     </script>
   </body>
 </html>

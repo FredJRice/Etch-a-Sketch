@@ -5,48 +5,53 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f0f0f0;
+  background-color: white;
 }
 #grid {
-  display: flex;
-  flex-wrap: wrap; /* allows items to wrap to next row */
-  width: 320px; /* adjust as you like */
-  height: 320px;
+  display: grid;
+  width: 640px; /* adjust as you like */
+  height: 640px;
   border: 1px solid #ccc;
 }
 
 .gridcell {
-  width: 20px; /* 320 / 16 = 20 */
-  height: 20px;
+  width: auto; /* 320 / 16 = 20 */
+  height: auto;
   border: 1px solid; /* optional */
   box-sizing: border-box;
-  transition: background-color 0.3s ease; /* smooth color transition */
+  transition: background-color 0.2s ease-out; /* smooth color transition */
 }
 #container {
-  position: relative;
-  width: fit-content;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#buttonContainer {
+  display: flex;
+  gap: 10px;
 }
 
 #clearButton {
-  position: absolute;
-  top: -40px;
-  left: 90%;
+  position: relative;
+  top: -20px;
+  left: 80%;
   z-index: 10px;
   padding: 5px 10px;
   transform: translateX(-50%);
 }
 #snake {
-  position: absolute;
-  top: -40px;
+  position: relative;
+  top: -20px;
   left: 60%;
   z-index: 10px;
   padding: 5px 10px;
   transform: translateX(-50%);
 }
-#gridSize {
-  position: absolute;
-  top: -40px;
+#etchButton {
+  position: relative;
+  top: -20px;
   left: 20%;
   z-index: 10px;
   padding: 5px 10px;
