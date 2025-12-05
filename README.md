@@ -1,1 +1,1 @@
-This is an etch-a-sketch game I created for my Odin project.  It has a siimple snake type multi-colour tracter and a simple etch-a-sketch drawing app.  Hold down the mouse button to fill in the squares and release to delete.
+This is an etch-a-sketch game I created for my Odin project.  It has a simple snake type multi-colour tracter and a simple etch-a-sketch drawing app.  Hold down the mouse button to fill in the squares and release to delete.
